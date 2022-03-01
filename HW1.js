@@ -6,7 +6,7 @@ const path = require('path')
 var fs = require("fs");
 const http = require('http')
 
-const products =[];
+const products =[];// file array in here
 
 fs.readFile( __dirname + "/" + "favs.json", 'utf8', function (err, data) { // Read file using fs function
     let Jon = JSON.parse(data) // let jon read the file
@@ -34,13 +34,13 @@ app.get('/products', function(req, res) { //red all the create_at Text, id, name
 });
 
 app.post('/products', function(req, res) { // post it 
-    var productName = req.body.name;
-    var productText = req.body.text;
+    var productName = req.body.name; //request body of name
+    var productText = req.body.text; //request body of text
 
     currentId++; // add on currentid
 
     products.push({ // push the id and name from the file 
-        id: currentId,
+        id: currentId, 
         name: productName
     });
 
@@ -62,20 +62,20 @@ app.put('/products/:id', function(req, res) {  //save the id but update the new 
     res.send('Succesfully updated product!');
 });
 
-app.delete('/products/:id', function(req, res) {
-    var id = req.params.id;
+app.delete('/products/:id', function(req, res) { // delete app
+    var id = req.params.id; //request params of id
 
     var found = false;
 
     products.forEach(function(product, index) {
-        if (!found && product.id === Number(id)) {
-            products.splice(index, 1);
+        if (!found && product.id === Number(id)) { //can't found and file.id == number(id)
+            products.splice(index, 1); // slice (index,1)
         }
     });
 
     res.send('Successfully deleted product!');
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, function() { // linsten to get the locahost
     console.log('Server listening on ' + PORT);
 });
